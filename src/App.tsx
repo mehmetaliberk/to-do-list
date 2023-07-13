@@ -1,7 +1,8 @@
 import { useEffect, useState,useCallback } from "react";
-import { NewTodoForm } from "./NewToDoForm";
+import { NewToDoForm } from "./NewToDoForm";
 import "./styles.css"
 import { ToDoList } from "./TodoList";
+import { todo } from "./TodoItem";
 
 
 
@@ -18,8 +19,8 @@ useEffect(()=>{
   localStorage.setItem("ITEMS",JSON.stringify(todos))
 },[todos])
 
-const addTodo = useCallback((title) => {
-  setTodos(currentTodos => {
+const addTodo = useCallback((title : string) => {
+  setTodos((currentTodos : string[]) => {
     return [
       ...currentTodos, {id: crypto.randomUUID(), title, completed: false},
     ]
@@ -27,8 +28,8 @@ const addTodo = useCallback((title) => {
 }, [setTodos])
 
 
-const toggleTodo = useCallback((id, completed) => {
-  setTodos(currentTodos => {
+const toggleTodo = useCallback((id : number , completed :boolean | undefined) => {
+  setTodos((currentTodos: todo[]) => {
     return currentTodos.map(todo => {
       if(todo.id === id){
         return { ...todo, completed}
@@ -39,18 +40,17 @@ const toggleTodo = useCallback((id, completed) => {
   })
 },[setTodos])
 
-const deleteTodo = useCallback((id) => {
-  setTodos(currentTodos => {
+const deleteTodo = useCallback((id : number) => {
+  setTodos((currentTodos: todo[]) => {
     return currentTodos.filter(todo => todo.id !== id)
   })
 },[setTodos])
 
 return (
   <>
-  <NewTodoForm onSubmit={addTodo}/>
+  <NewToDoForm onSubmit={addTodo}/>
   <h1 className="header">Todo List</h1>
-  <ToDoList todos={todos} toggleTodo={toggleTodo} 
-  deleteTodo={deleteTodo}/>
+  <ToDoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo}/>
   </>
 )
 

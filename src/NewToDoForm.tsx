@@ -1,14 +1,19 @@
 import { useState } from "react";
 
-export function NewTodoForm({onSubmit}){
+interface OwnProps {
+    onSubmit: (title: string) => void
+  }
+
+export function NewToDoForm({ onSubmit }: OwnProps) {
 const [newItem, setNewItem]= useState("")
 
-function handleSubmit(e){
+function handleSubmit(e : any){
 
     e.preventDefault()
     if (newItem==="") return
 
     onSubmit(newItem)
+    
 
     setNewItem("")
 }

@@ -1,9 +1,16 @@
 import { TodoItem} from "./TodoItem";
 import React,{useMemo} from "react";
+import { todo } from "./TodoItem";
 
 
 
-export function ToDoList({todos, toggleTodo, deleteTodo}){
+interface OwnProps {
+    todos :todo[], toggleTodo : Function, deleteTodo : Function
+  }
+  
+  
+export function ToDoList({ todos, toggleTodo, deleteTodo }: OwnProps) {
+
     const items = useMemo(() => {
         return todos.map(todo => {
             return(
