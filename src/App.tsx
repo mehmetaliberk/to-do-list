@@ -2,13 +2,13 @@ import { useEffect, useState,useCallback } from "react";
 import { NewToDoForm } from "./NewToDoForm";
 import "./styles.css"
 import { ToDoList } from "./TodoList";
-import { todo } from "./TodoItem";
+import { Todo } from "./TodoItem";
 
 
 
 
 export default function App(){
-const[todos,setTodos]=useState(()=>{
+const[todos,setTodos]=useState<Todo[]>(()=>{
 const localValue = localStorage.getItem("ITEMS")
 if (localValue == null) return[]
 
@@ -20,7 +20,7 @@ useEffect(()=>{
 },[todos])
 
 const addTodo = useCallback((title : string) => {
-  setTodos((currentTodos : string[]) => {
+  setTodos((currentTodos: Todo[]) => {
     return [
       ...currentTodos, {id: crypto.randomUUID(), title, completed: false},
     ]
@@ -28,8 +28,8 @@ const addTodo = useCallback((title : string) => {
 }, [setTodos])
 
 
-const toggleTodo = useCallback((id : number , completed :boolean | undefined) => {
-  setTodos((currentTodos: todo[]) => {
+const toggleTodo = useCallback((id : string , completed :boolean | undefined) => {
+  setTodos((currentTodos) => {
     return currentTodos.map(todo => {
       if(todo.id === id){
         return { ...todo, completed}
@@ -40,8 +40,8 @@ const toggleTodo = useCallback((id : number , completed :boolean | undefined) =>
   })
 },[setTodos])
 
-const deleteTodo = useCallback((id : number) => {
-  setTodos((currentTodos: todo[]) => {
+const deleteTodo = useCallback((id : string) => {
+  setTodos((currentTodos: Todo[]) => {
     return currentTodos.filter(todo => todo.id !== id)
   })
 },[setTodos])

@@ -1,14 +1,14 @@
 
 
-export interface todo{
-    completed : boolean
-    id : number;
+export interface Todo{
+    completed? : boolean
+    id : string;
     title : string;
     toggleTodo? : Function;
     deleteTodo? : Function;
 }
 
-export function TodoItem(TodoItem : todo){
+export function TodoItem(TodoItem : Todo){
 
     return(
         <li>

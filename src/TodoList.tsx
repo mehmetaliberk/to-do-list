@@ -1,11 +1,11 @@
 import { TodoItem} from "./TodoItem";
 import React,{useMemo} from "react";
-import { todo } from "./TodoItem";
+import { Todo } from "./TodoItem";
 
 
 
 interface OwnProps {
-    todos :todo[], toggleTodo : Function, deleteTodo : Function
+    todos :Todo[], toggleTodo : Function, deleteTodo : Function
   }
   
   
