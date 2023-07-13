@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useCallback } from "react";
 import { NewTodoForm } from "./NewToDoForm";
 import "./styles.css"
 import { ToDoList } from "./TodoList";
@@ -18,32 +18,32 @@ useEffect(()=>{
   localStorage.setItem("ITEMS",JSON.stringify(todos))
 },[todos])
 
-function addTodo(title){
-  setTodos(currentTodos=>{
-return[
-  ...currentTodos,
-  {id: crypto.randomUUID(), title , completed: false}
-]
-
+const addTodo = useCallback((title) => {
+  setTodos(currentTodos => {
+    return [
+      ...currentTodos, {id: crypto.randomUUID(), title, completed: false},
+    ]
   })
-}
+}, [setTodos])
 
-function toggleTodo(id, completed){
-  setTodos(currentTodos=>{
-    return currentTodos.map(todo =>{
-      if (todo.id === id){
-        return{...todo,completed}
+
+const toggleTodo = useCallback((id, completed) => {
+  setTodos(currentTodos => {
+    return currentTodos.map(todo => {
+      if(todo.id === id){
+        return { ...todo, completed}
       }
+
       return todo
     })
   })
-}
+},[setTodos])
 
-function deleteTodo(id){
-setTodos(currentTodos=>{
-  return currentTodos.filter(todo=>todo.id !== id)
-})
-}
+const deleteTodo = useCallback((id) => {
+  setTodos(currentTodos => {
+    return currentTodos.filter(todo => todo.id !== id)
+  })
+},[setTodos])
 
 return (
   <>
